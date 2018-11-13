@@ -1,4 +1,9 @@
+from ._global import EPSILON
+import math
+
+
 class Vector:
+
     def __init__(self, lst):
         self._values = list(lst)
 
@@ -6,6 +11,16 @@ class Vector:
     def zero(cls, dim):
         """返回一个 dim 维的零向量"""
         return cls([0] * dim)
+
+    def norm(self):
+        """返回向量的模"""
+        return math.sqrt(sum(e ** 2 for e in self))
+
+    def normalize(self):
+        """返回向量的单位向量"""
+        if self.norm() < EPSILON:
+            raise ZeroDivisionError("Normalize error! norm is zero.")
+        return Vector(self._values) / self.norm()
 
     def __add__(self, other):
         """向量加法，返回结果向量"""
@@ -24,6 +39,10 @@ class Vector:
     def __rmul__(self, k):
         """返回数量乘法的结果向量：k * self"""
         return self * k
+
+    def __truediv__(self, k):
+        """返回数量除法的结果向量：self / k"""
+        return (1 / k) * self
 
     def __pos__(self):
         """返回向量取正的结果向量"""
