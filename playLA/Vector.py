@@ -32,6 +32,11 @@ class Vector:
         assert len(self) == len(other), "Error in subtracting, Length of vectors must be same."
         return Vector([a - b for a, b in zip(self, other)])
 
+    def dot(self, other):
+        """向量点乘，返回结果标量"""
+        assert len(self) == len(other), "Error in dot product, Length of vectors must be same."
+        return sum(a * b for a, b in zip(self, other))
+
     def __mul__(self, k):
         """返回数量乘法的结果向量：self * k"""
         return Vector([k * e for e in self])
